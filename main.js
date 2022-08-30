@@ -17,10 +17,13 @@ const displayPhones = (phones) => {
     // Send a message when there is no product displayed
     const noProduct = document.getElementById("not-found");
     if (phones.length === 0) {
+        searchProcess(false)
         noProduct.classList.remove("d-none");
     }else{
         noProduct.classList.add("d-none");
+        searchProcess(false)
     }
+
     phones.forEach(phone => {
         // step-2: create an element where each phone will be added
         const phoneElement = document.createElement("div");
@@ -41,21 +44,27 @@ const displayPhones = (phones) => {
 }
 
 // Make dynamic the searching function so that access any where;
-const searchProcess = () => {
+const searchProcess = (isLoading) => {
     const searchField = document.getElementById("search-field");
+    const loader = document.getElementById("loader");
     const searchText = searchField.value;
-    loadPhones(searchText);
+    if (isLoading) {
+        loader.classList.remove("d-none");
+        loadPhones(searchText);
+    }else{
+        loader.classList.add("d-none");
+    }
 }
 
 // add search function
 document.getElementById("search-btn").addEventListener("click", () => {
-    searchProcess()
+    searchProcess(true)
 })
 
 // add a keydown Event listener on Enter Key so that no need to press search button;
-document.getElementById("search-field").addEventListener("keydown", (event) => {
+document.getElementById("search-field").addEventListener("keyup", (event) => {
     if (event.key === "Enter") {
-        searchProcess();
+        searchProcess(true);
     }
 })
 

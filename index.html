@@ -16,10 +16,20 @@
 
     <main>
         <section class="container my-1 text-center">
+            <!-- sear section  -->
             <div>
                 <input class="p-2" type="text" name="" id="search-field" placeholder="Enter phone name">
                 <button id="search-btn" class="btn btn-primary p-2">Search</button>
             </div>
+            <!-- Spinner or Loader section  -->
+            <div id="loader" class="my-2 text-white d-none">
+                <button class="btn btn-primary" type="button" disabled>
+                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                    Loading...
+                </button>
+            </div>
+
+            <!-- search error message  -->
             <div id="not-found" class="text-white d-none my-2 bg-danger p-3">
                 <h4>Product not found: error code 404.</h4>
             </div>
