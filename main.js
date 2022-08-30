@@ -40,12 +40,23 @@ const displayPhones = (phones) => {
     });
 }
 
-// add search function
-document.getElementById("search-btn").addEventListener("click", () => {
+// Make dynamic the searching function so that access any where;
+const searchProcess = () => {
     const searchField = document.getElementById("search-field");
     const searchText = searchField.value;
-    loadPhones(searchText)
+    loadPhones(searchText);
+}
+
+// add search function
+document.getElementById("search-btn").addEventListener("click", () => {
+    searchProcess()
 })
 
+// add a keydown Event listener on Enter Key so that no need to press search button;
+document.getElementById("search-field").addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        searchProcess();
+    }
+})
 
 loadPhones("apple")
