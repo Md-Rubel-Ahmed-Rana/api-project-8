@@ -13,14 +13,21 @@ const displayPhones = (phones) => {
     // step-1: get the Element where Phones will be displayd
     const phoneContainer = document.getElementById("phone-container");
     // clear the previous phone
-    phoneContainer.textContent = ""
+    phoneContainer.textContent = "";
+    // Send a message when there is no product displayed
+    const noProduct = document.getElementById("not-found");
+    if (phones.length === 0) {
+        noProduct.classList.remove("d-none");
+    }else{
+        noProduct.classList.add("d-none");
+    }
     phones.forEach(phone => {
         // step-2: create an element where each phone will be added
         const phoneElement = document.createElement("div");
         phoneElement.classList.add("col");
         // step-3: set the innerHTMl to display every single phone
         phoneElement.innerHTML = `
-            <div class="card p-3 text-center bg-success text-white">
+            <div class="card p-3 text-center bg-success text-white" style="height: 300px;">
                 <img src="${phone.image}" class="card-img-top w-50 m-auto p-2 rounded-md" alt="...">
                 <div class="card-body">
                     <h3 class="card-title"> ${phone.phone_name} </h3>
