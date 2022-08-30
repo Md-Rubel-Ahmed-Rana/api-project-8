@@ -25,22 +25,45 @@ const displayPhones = (phones) => {
     }
 
     phones.forEach(phone => {
+        // console.log(phone);
         // step-2: create an element where each phone will be added
         const phoneElement = document.createElement("div");
         phoneElement.classList.add("col");
         // step-3: set the innerHTMl to display every single phone
         phoneElement.innerHTML = `
-            <div class="card p-3 text-center bg-success text-white" style="height: 300px;">
+            <div class="card p-1 text-center bg-success text-white" style="height: 430px;">
                 <img src="${phone.image}" class="card-img-top w-50 m-auto p-2 rounded-md" alt="...">
                 <div class="card-body">
                     <h3 class="card-title"> ${phone.phone_name} </h3>
                     <h4>Brand: ${phone.brand} </h4>
+                    <button onclick="loadDetails('${phone.slug}')" class="btn btn-primary mt-2"  data-bs-toggle="modal" data-bs-target="#productDetails">Show Details</button>
                 </div>
             </div>
         `;
         // step-4: append the single phone to the phones container
         phoneContainer.appendChild(phoneElement);
     });
+}
+
+// show the product details
+const loadDetails = async(id) => {
+    const url = await `https://openapi.programming-hero.com/api/phone/${id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    showDetails(data.data)
+}
+
+const showDetails = (phone) => {
+    const name = document.getElementById("productTitle");
+    const image = document.getElementById("modal-img");
+    const memory = document.getElementById("memory");
+    const sensor = document.getElementById("sensor");
+    const release = document.getElementById("release");
+    name.innerText = phone.name;
+    image.src = phone.image;
+    memory.innerText = phone.mainFeatures.memory;
+    sensor.innerText = "Sensor: " + phone.mainFeatures.sensors[0];
+    release.innerText = phone.releaseDate;
 }
 
 // Make dynamic the searching function so that access any where;
@@ -67,5 +90,6 @@ document.getElementById("search-field").addEventListener("keyup", (event) => {
         searchProcess(true);
     }
 })
+
 
 loadPhones("apple")
