@@ -1,7 +1,7 @@
 
 // get the data from API or server
-const loadPhones = async() => {
-    const url = await `https://openapi.programming-hero.com/api/phones?search=iphone`;
+const loadPhones = async (searchText) => {
+    const url = await `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
     const res = await fetch(url);
     const data = await res.json();
     displayPhones(data.data);
@@ -12,6 +12,8 @@ const loadPhones = async() => {
 const displayPhones = (phones) => {
     // step-1: get the Element where Phones will be displayd
     const phoneContainer = document.getElementById("phone-container");
+    // clear the previous phone
+    phoneContainer.textContent = ""
     phones.forEach(phone => {
         // step-2: create an element where each phone will be added
         const phoneElement = document.createElement("div");
@@ -31,4 +33,12 @@ const displayPhones = (phones) => {
     });
 }
 
-loadPhones()
+// add search function
+document.getElementById("search-btn").addEventListener("click", () => {
+    const searchField = document.getElementById("search-field");
+    const searchText = searchField.value;
+    loadPhones(searchText)
+})
+
+
+loadPhones("apple")
