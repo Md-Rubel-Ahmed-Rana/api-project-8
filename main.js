@@ -12,7 +12,7 @@ const loadPhones = async (searchText) => {
 const displayPhones = (phones) => {
     // step-1: get the Element where Phones will be displayd
     const phoneContainer = document.getElementById("phone-container");
-    // clear the previous phone
+    // clear the previous product;
     phoneContainer.textContent = "";
     // Send a message when there is no product displayed
     const noProduct = document.getElementById("not-found");
